@@ -1,8 +1,14 @@
+import AddContact from "./components/AddContact";
 import Header from "./components/Header";
+import ContactList from "./components/ContactList";
 
 function App() {
+
   return (
-   <Header/>//  including header component in the App component
+    <div>
+      <Header/>//  including header component in the App component
+      <AddContact />
+    </div>
   );
 }
 
