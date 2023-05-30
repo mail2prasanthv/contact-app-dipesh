@@ -6,7 +6,7 @@ class ContactList extends React.Component {
     render() {
         const datatabledivs = this.props.contacts.map((eachContact) =>{
             return (
-                <ContactCard namearg={eachContact.name} emailarg={eachContact.email} />
+                <ContactCard contact={eachContact} />
             )
         });
        
