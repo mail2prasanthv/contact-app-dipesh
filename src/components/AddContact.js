@@ -31,6 +31,9 @@ class AddContact extends React.Component {
     //calling function defined in the App.js
     this.props.addContactHandler(this.state); 
     
+    //clearing the textfields afer added to the state.
+    this.setEmail("")
+    this.setName("")
   }
   
   render() {
