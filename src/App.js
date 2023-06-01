@@ -15,12 +15,19 @@ function App() {
     //And adding the new one
       setContactlist([...contactlist, contact]);
   }
+  //First checks local storage has items and state object contactlist is empty.
+  //In this case load from localstorage and keep it in the contactlist
+  useEffect(()=>{
+    const localstaragecontact = JSON.parse(localStorage.getItem(LOCAL_STOTAGE_KEY));
+  
+    if(localstaragecontact && localstaragecontact.length >0 && contactlist.length===0)     setContactlist(localstaragecontact)
+  }, [contactlist]);
 
   //method to capture changes in the array contactlist and save it to the localstorage with key LOCAL_STOTAGE_KEY
   useEffect(()=>{
     localStorage.setItem(LOCAL_STOTAGE_KEY, JSON.stringify(contactlist));
-  }, [contactlist])
-
+  }, [contactlist]);
+  
   return (
     <div>
       <Header/>
