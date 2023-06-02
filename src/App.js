@@ -2,46 +2,59 @@ import AddContact from "./components/AddContact";
 import Header from "./components/Header";
 import ContactList from "./components/ContactList";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+
 
 function App() {
-  const LOCAL_STOTAGE_KEY="CONTACTS_LS"
+  const LOCAL_STOTAGE_KEY = "CONTACTS_LS";
 
-   //initializing empty array as contactlist state variable
-  const[contactlist, setContactlist] = useState([]);
+  //initializing empty array as contactlist state variable
+  const [contactlist, setContactlist] = useState([]);
 
-  const addContactFunction =(contact) => {
+  const addContactFunction = (contact) => {
     //called from AddContact component.
     //...contactlist - retains all the existing elements
     //And adding the new one
-      setContactlist([...contactlist, {"id":uuidv4(), ...contact}]);
-  }
+    setContactlist([...contactlist, { id: uuidv4(), ...contact }]);
+  };
 
-  const functionInAppToRemoveContact =(id) => {
+  const functionInAppToRemoveContact = (id) => {
     //remove the contact based on id
     const newcontactList = contactlist.filter((eachContact) => {
       return eachContact.id !== id;
-    })
+    });
     setContactlist(newcontactList);
-  }
+  };
   //First checks local storage has items and state object contactlist is empty.
   //In this case load from localstorage and keep it in the contactlist
-  useEffect(()=>{
-    const localstaragecontact = JSON.parse(localStorage.getItem(LOCAL_STOTAGE_KEY));
-  
-    if(localstaragecontact && localstaragecontact.length >0 && contactlist.length===0)     setContactlist(localstaragecontact)
+  useEffect(() => {
+    const localstaragecontact = JSON.parse(
+      localStorage.getItem(LOCAL_STOTAGE_KEY)
+    );
+
+    if (
+      localstaragecontact &&
+      localstaragecontact.length > 0 &&
+      contactlist.length === 0
+    )
+      setContactlist(localstaragecontact);
   }, [contactlist]);
 
   //method to capture changes in the array contactlist and save it to the localstorage with key LOCAL_STOTAGE_KEY
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem(LOCAL_STOTAGE_KEY, JSON.stringify(contactlist));
   }, [contactlist]);
-  
+
   return (
     <div>
-      <Header/>
-      <AddContact  addContactHandler={addContactFunction}/>
-      <ContactList contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>
+
+        <Header />
+        <AddContact addContactHandler={addContactFunction} />
+        <ContactList
+          contacts={contactlist}
+          functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}
+        />
+
     </div>
   );
 }
