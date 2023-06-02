@@ -8,8 +8,17 @@ class ContactList extends React.Component {
         this.props.functionInAppToRemoveContactAsArg(idToBeDeleted)
       }
 
+
     render() {
-        const datatabledivs = this.props.contacts.map((eachContact) =>{
+      const  contacts = [
+            {
+                "id": "1",
+                "name": "Kevin",
+                "email":"abc@abc.com"
+            }
+        ]
+    
+        const datatabledivs = contacts.map((eachContact) =>{
             return (
                 <ContactCard contact={eachContact} functionInContactListToPassIdToAppAsArg ={this.props.functionInAppToRemoveContactAsArg}/>
             )
