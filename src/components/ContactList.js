@@ -1,5 +1,6 @@
 import React from "react";
 import ContactCard from "./ContactCard";
+import {Link} from "react-router-dom"
 
 class ContactList extends React.Component {
    
@@ -10,15 +11,8 @@ class ContactList extends React.Component {
 
 
     render() {
-      const  contacts = [
-            {
-                "id": "1",
-                "name": "Kevin",
-                "email":"abc@abc.com"
-            }
-        ]
-    
-        const datatabledivs = contacts.map((eachContact) =>{
+         
+        const datatabledivs = this.props.contacts.map((eachContact) =>{
             return (
                 <ContactCard contact={eachContact} functionInContactListToPassIdToAppAsArg ={this.props.functionInAppToRemoveContactAsArg}/>
             )
@@ -27,10 +21,13 @@ class ContactList extends React.Component {
       
        
         return (
-            <div>
-                <h1>List of Contacts</h1>
-                {datatabledivs}
-            </div>
+          <div>
+            <h1>List of Contacts</h1>
+            <Link to="/add">
+              <button> Add Contact</button>
+            </Link>
+            {datatabledivs}
+          </div>
         );
     }
 }

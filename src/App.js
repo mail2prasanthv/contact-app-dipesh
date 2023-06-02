@@ -50,8 +50,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/add" Component={AddContact}></Route> 
-          <Route path="/" Component={ContactList}></Route>
+          <Route path="/" Component={() => <ContactList contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>}></Route>
+          <Route path="/add" Component={() => <AddContact addContactHandler={addContactFunction} />}></Route> 
           {/* <AddContact addContactHandler={addContactFunction} />
         <ContactList
           contacts={contactlist}
