@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import ContactList from "./components/ContactList";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { BrowserRouter as Router, Switch, Route ,Routes} from "react-router-dom";
+import { BrowserRouter as Router,  Route ,Routes} from "react-router-dom";
 
 function App() {
   const LOCAL_STOTAGE_KEY = "CONTACTS_LS";
@@ -50,13 +50,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" Component={() => <ContactList contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>}></Route>
-          <Route path="/add" Component={() => <AddContact addContactHandler={addContactFunction} />}></Route> 
-          {/* <AddContact addContactHandler={addContactFunction} />
-        <ContactList
-          contacts={contactlist}
-          functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}
-        /> */}
+          <Route path="/" element={<ContactList  contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>}></Route>
+          <Route path="/add" element={<AddContact  addContactHandler={addContactFunction} />}></Route> 
         </Routes>
       </Router>
     </div>
