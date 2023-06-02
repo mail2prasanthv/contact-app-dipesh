@@ -2,6 +2,7 @@ import AddContact from "./components/AddContact";
 import Header from "./components/Header";
 import ContactList from "./components/ContactList";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const LOCAL_STOTAGE_KEY="CONTACTS_LS"
@@ -13,7 +14,15 @@ function App() {
     //called from AddContact component.
     //...contactlist - retains all the existing elements
     //And adding the new one
-      setContactlist([...contactlist, contact]);
+      setContactlist([...contactlist, {"id":uuidv4(), ...contact}]);
+  }
+
+  const functionInAppToRemoveContact =(id) => {
+    //remove the contact based on id
+    const newcontactList = contactlist.filter((eachContact) => {
+      return eachContact.id !== id;
+    })
+    setContactlist(newcontactList);
   }
   //First checks local storage has items and state object contactlist is empty.
   //In this case load from localstorage and keep it in the contactlist
@@ -32,7 +41,7 @@ function App() {
     <div>
       <Header/>
       <AddContact  addContactHandler={addContactFunction}/>
-      <ContactList contacts={contactlist}/>
+      <ContactList contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>
     </div>
   );
 }
