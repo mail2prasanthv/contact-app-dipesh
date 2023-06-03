@@ -1,60 +1,51 @@
-import React from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-class AddContact extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      name: "", //state variable to store name
-      email: "" ////state variable to store email
-    }
-  }
-  //method to set name  - calls onchange of name field
-  setName = (namearg) => {
-    this.setState({
-      name: namearg
-    })
-  }
-   //method to set name - calls onchange of email field
-   setEmail = (emailarg) => {
-    this.setState({
-      email: emailarg
-    })
-  }
-
-  save = (e) => { // userdefined function for validation and saving the data in the state variable(contact) in App.js(later)
+function AddContact(props) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+  const { addContactHandler} = props;
+     
+ 
+  const save = (e) => {
+  // userdefined function for validation and saving the data in the state variable(contact) in App.js(later)
     e.preventDefault();
-    if(this.state.name==="" || this.state.email ==="") {
+    if(name==="" || email ==="") {
       alert("All the fields are mandatory")
       return;
     }
     // calling function stored in the variable addContactHandler and passing the state(contins both name and email)
     //calling function defined in the App.js
-    this.props.addContactHandler(this.state); 
+    addContactHandler({"name" : name, "email" : email}); 
     
     //clearing the textfields afer added to the state.
-    this.setEmail("")
-    this.setName("")
+    setEmail("")
+    setName("")
+
+    navigate('/');
   }
   
-  render() {
+
+    
     return (
       <div>
         <h2>Add Contact</h2>
-        <form onSubmit={this.save}>
+        <form onSubmit={save}>
           <div>
             <label>Name</label>
             <input  type="text" 
                     placeholder="Type Name here" 
-                    onChange={(e) => this.setName(e.target.value)} 
-                    value={this.state.name}>
+                    onChange={(e) => setName(e.target.value)} 
+                    value={name}>
             </input>
           </div>
           <div>
             <label>Email</label>
             <input  type="text" 
                     placeholder="Type Email here" 
-                    onChange={(e) =>  this.setEmail(e.target.value)} 
-                    value={this.state.email}>
+                    onChange={(e) =>  setEmail(e.target.value)} 
+                    value={email}>
             </input>
           </div>
           <button>Add Contact</button>
@@ -62,6 +53,6 @@ class AddContact extends React.Component {
       </div>
     ); 
   }
-}
+
 
 export default AddContact;
