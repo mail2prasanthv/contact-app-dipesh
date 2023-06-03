@@ -4,6 +4,7 @@ import ContactList from "./components/ContactList";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter as Router,  Route ,Routes} from "react-router-dom";
+import ContactDetails from "./components/ContactDetails";
 
 function App() {
   const LOCAL_STOTAGE_KEY = "CONTACTS_LS";
@@ -52,6 +53,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ContactList  contacts={contactlist} functionInAppToRemoveContactAsArg={functionInAppToRemoveContact}/>}></Route>
           <Route path="/add" element={<AddContact  addContactHandler={addContactFunction} />}></Route> 
+          <Route path="/contactdetail/:id" element={<ContactDetails/>}/>
         </Routes>
       </Router>
     </div>

@@ -1,7 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class ContactCard extends React.Component {
  
+  constructor(props) {
+    super(props);
+  }
   render() {
 
     
@@ -10,11 +14,20 @@ class ContactCard extends React.Component {
         //contents of contacts list converts data divs
         // display:"inline"} - keeps the element in the same line
     return (
-    <div style={{marginBottom:"20px"}}>
-      <div style={{ display:"inline", marginRight:"20px"}}>{name} </div>
-      <div style={{ display:"inline", marginRight:"20px"}}>{email}</div>
-      <button onClick={() => this.props.functionInContactListToPassIdToAppAsArg(id)}>Delete Me</button>
-    </div>
+      <div style={{ marginBottom: "20px" }}>
+        <Link
+          to={"/contactdetail/" + id}
+          state={{ contact: this.props.contact }}
+        >
+          <div style={{ display: "inline", marginRight: "20px" }}>{name} </div>
+          <div style={{ display: "inline", marginRight: "20px" }}>{email}</div>
+        </Link>
+        <button
+          onClick={() => this.props.functionInContactListToPassIdToAppAsArg(id)}
+        >
+          Delete Me
+        </button>
+      </div>
     );
   }
 }
