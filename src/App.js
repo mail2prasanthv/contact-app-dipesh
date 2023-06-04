@@ -17,6 +17,10 @@ function App() {
     const response = await api.get("/contacts");
     return response.data;
   };
+  const deleteContactFromAPI = async (id) => {
+    const response = await api.delete("/contacts/" + id);
+    return response.data;
+  };
 
   const addContactFunction = (contact) => {
     //called from AddContact component.
@@ -30,9 +34,11 @@ function App() {
 
   };
 
-  const functionInAppToRemoveContact = (id) => {
+  const functionInAppToRemoveContact = async (id) => {
     //remove the contact based on id
-    const newcontactList = contactlist.filter((eachContact) => {
+    
+    await api.delete("/contacts/" + id);
+     const newcontactList = contactlist.filter((eachContact) => {
       return eachContact.id !== id;
     });
     setContactlist(newcontactList);
@@ -51,6 +57,7 @@ function App() {
   //method to capture changes in the array contactlist and save it to the localstorage with key LOCAL_STOTAGE_KEY
   useEffect(() => {
     localStorage.setItem(LOCAL_STOTAGE_KEY, JSON.stringify(contactlist));
+    console.log("Test")
   }, [contactlist]);
 
   return (
